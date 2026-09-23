@@ -1,0 +1,40 @@
+name: Paper compatibility
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { paper: '26.3', java: '25' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - uses: actions/setup-java@v4
+        if: matrix.java != '25'
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - name: Unit tests and release jar
+        run: JAVA_HOME="$JAVA_HOME_25_X64" bash gradlew --no-configuration-cache test shadowJar
+      - name: Upload release jar
+        if: strategy.job-index == 0
+        uses: actions/upload-artifact@v4
+        with:
+          name: BetterRTP
+          path: build/libs/*-all.jar
+      - name: Server smoke test
+        run: |
+          runtime_home_var="JAVA_HOME_${{ matrix.java }}_X64"
+          export PAPER_JAVA_HOME="${!runtime_home_var}"
+          export JAVA_HOME="$JAVA_HOME_25_X64"
+          python3 scripts/smoke-paper.py '${{ matrix.paper }}' '${{ matrix.java }}'
