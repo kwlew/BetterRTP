@@ -1,0 +1,11 @@
+name: BetterRTP
+description: $description
+prefix: BetterRTP
+version: '${version}'
+
+main: dev.kwlew.BetterRTP
+api-version: '26.3'
+load: POSTWORLD
+
+authors: [ kwlew ]
+website: https://kwlew.dev
