@@ -14,6 +14,10 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     compileOnly("me.clip:placeholderapi:2.12.3")
+
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
@@ -23,6 +27,14 @@ java {
 tasks {
     compileJava {
         options.release = 17
+    }
+
+    compileTestJava {
+        options.release = 17
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     jar {
@@ -56,7 +68,7 @@ tasks {
             exclude { it.moduleGroup != "org.bstats" }
         }
 
-        relocate("org.bstats", "dev.kwlew.haven.lib.bstats")
+        relocate("org.bstats", "dev.kwlew.betterrtp.lib.bstats")
     }
 
     processResources {

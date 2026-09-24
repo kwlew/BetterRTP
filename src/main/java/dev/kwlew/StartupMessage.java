@@ -20,7 +20,7 @@ final class StartupMessage {
 
     static void print(JavaPlugin plugin, long startupMillis) {
         Logger logger = plugin.getLogger();
-        String version = plugin.getPluginMeta().getVersion();
+        String version = plugin.getDescription().getVersion();
 
         logger.info(LINE);
         logger.info(ANSI_CYAN + "  BetterRTP " + ANSI_WHITE + "v" + version + ANSI_RESET);

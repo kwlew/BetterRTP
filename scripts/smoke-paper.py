@@ -49,9 +49,11 @@ def download_paper(version, target):
 
 
 def find_plugin_jar():
-    jars = glob.glob("build/libs/*-all.jar")
+    # The plain jar task is disabled, so the shadow jar is the only non-sources/javadoc jar.
+    jars = [jar for jar in glob.glob("build/libs/*.jar")
+            if not jar.endswith(("-sources.jar", "-javadoc.jar"))]
     if len(jars) != 1:
-        sys.exit(f"Expected exactly one shadow jar in build/libs, found: {jars}")
+        sys.exit(f"Expected exactly one plugin jar in build/libs, found: {jars}")
     return os.path.abspath(jars[0])
 
 

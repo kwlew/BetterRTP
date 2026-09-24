@@ -14,7 +14,7 @@ public final class BetterRTP extends JavaPlugin {
         long start = System.nanoTime();
 
         if (!VersionSupport.supports(getServer().getBukkitVersion())) {
-            getLogger().severe("Haven requires Paper 1.18.2 or newer; found "
+            getLogger().severe("BetterRTP requires Paper 1.18.2 or newer; found "
                     + getServer().getBukkitVersion());
             getServer().getPluginManager().disablePlugin(this);
             return;
@@ -26,7 +26,7 @@ public final class BetterRTP extends JavaPlugin {
             bootstrap = new Bootstrap(this);
             bootstrap.init();
         } catch (Throwable t) {
-            getLogger().log(Level.SEVERE, "Haven failed to start and will be disabled.", t);
+            getLogger().log(Level.SEVERE, "BetterRTP failed to start and will be disabled.", t);
 
             getServer().getPluginManager().disablePlugin(this);
             return;
