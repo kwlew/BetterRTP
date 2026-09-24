@@ -13,14 +13,21 @@ public final class BetterRTP extends JavaPlugin {
     public void onEnable() {
         long start = System.nanoTime();
 
-        bootstrap = new Bootstrap(this);
+        if (!VersionSupport.supports(getServer().getBukkitVersion())) {
+            getLogger().severe("Haven requires Paper 1.18.2 or newer; found "
+                    + getServer().getBukkitVersion());
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        saveDefaultConfig();
+
         try {
+            bootstrap = new Bootstrap(this);
             bootstrap.init();
-        } catch (RuntimeException e) {
-            // Bootstrap has already rolled back whatever it brought up; just stop here instead of
-            // leaving a half-enabled plugin registered with the server.
-            StartupMessage.printFailure(this, elapsedMillis(start));
-            getLogger().log(Level.SEVERE, "Startup error", e);
+        } catch (Throwable t) {
+            getLogger().log(Level.SEVERE, "Haven failed to start and will be disabled.", t);
+
             getServer().getPluginManager().disablePlugin(this);
             return;
         }

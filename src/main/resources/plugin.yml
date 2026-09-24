@@ -4,7 +4,7 @@ prefix: BetterRTP
 version: '${version}'
 
 main: dev.kwlew.BetterRTP
-api-version: '26.3'
+api-version: '1.18'
 load: POSTWORLD
 
 authors: [ kwlew ]

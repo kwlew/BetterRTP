@@ -11,6 +11,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - { paper: '1.18.2', java: '17' }
+          - { paper: '1.19.4', java: '17' }
+          - { paper: '1.20.4', java: '21' }
+          - { paper: '1.20.6', java: '21' }
+          - { paper: '1.21.1', java: '21' }
+          - { paper: '1.21.11', java: '21' }
+          - { paper: '26.1.2', java: '25' }
+          - { paper: '26.2', java: '25' }
           - { paper: '26.3', java: '25' }
     steps:
       - uses: actions/checkout@v4
